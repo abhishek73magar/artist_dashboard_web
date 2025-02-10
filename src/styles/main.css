@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #00BF62;
+  --color-secondary: #0B0F2F;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Lato", serif;
+    border-color: var(--color-gray-200);
+  }
+} 
+
+/* table padding */
+.table-p{
+  padding: 0.5rem 0.8rem;
+}
+
+.animation-enter{
+  --animation-name: enter 0.3s ease-in;
+  animation: var(--animation-name);
+  -webkit-animation: var(--animation-name);
+  -moz-animation: var(--animation-name);
+  -o-animation: var(--animation-name);
+}
+
+@keyframes enter{
+  0%{
+    opacity: 0;
+    scale: 0.4;
+    transform: translateY(100%);
+    /* transform: translate(0, 10px); */
+  }
+
+  100%{
+    /* transform: translate(0, 10px); */
+    opacity: 1;
+    scale: 1;
+    transform: translateX(0);
+  }
+}
