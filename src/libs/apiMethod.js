@@ -92,6 +92,34 @@ export const useFetchUpdate = (url) => {
         return prev
       })
     },
+    // paginateted data update
+    addPagination: (dd, pagenumber, limit=50) => {
+      return queryClient.setQueriesData([`${url}?pagenumber=${pagenumber || sessionStorage.getItem('pagenumber') || 1}&limit=${limit}`], (prev) => {
+        if(prev && Array.isArray(prev.data)) {
+          const data = [...prev.data, dd]
+          return { ...prev, data }
+        }
+        return prev; 
+      })
+    },
+    updatePagination: (id, dd, pagenumber, limit=50) => {
+      return queryClient.setQueriesData([`${url}?pagenumber=${pagenumber || sessionStorage.getItem('pagenumber') || 1}&limit=${limit}`], (prev) => {
+        if(prev && Array.isArray(prev.data)) {
+          const data = prev.data.map((item) => +item.id === +id ? ({ ...item, ...dd }) : item)
+          return { ...prev, data }
+        }
+        return prev; 
+      })
+    },
+    removePagination: (id, pagenumber, limit=50) => {
+      return queryClient.setQueriesData([`${url}?pagenumber=${pagenumber || sessionStorage.getItem('pagenumber') || 1}&limit=${limit}`], (prev) => {
+        if(prev && Array.isArray(prev.data)) {
+          const data = prev.data.filter((item) => +item.id !== +id)
+          return { ...prev, data }
+        }
+        return prev; 
+      })
+    },
     // add, update and, remove sub data items
     addSub: (id, subKey, dd, is_new) => {
       return queryClient.setQueryData([url], (prev) => {

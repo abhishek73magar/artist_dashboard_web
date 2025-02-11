@@ -15,6 +15,7 @@ const formPayload = {
   dob: "",
   gender: 'm',
   phone: "",
+  role: "artist",
   address: '',
   password: '',
   cpassword: ''
@@ -25,9 +26,9 @@ const roleOptions = [
   { name: "Artist Manager", value: "artist_manager" }
 ]
 
-const UserForm = ({ onSubmit, data, type='add', schema=SignupSchema }) => {
-  const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm({ defaultValues: type === 'add' ? formPayload : data, mode: "onChange", resolver: zodResolver(schema)})
-  
+const UserForm = ({ onSubmit, data=formPayload, type='add', schema=SignupSchema }) => {
+  const { register, handleSubmit, formState: { errors, isSubmitting }, watch, setValue, reset } = useForm({ defaultValues: data, mode: "onChange", resolver: zodResolver(schema)})
+    
   const __handleSubmit = (formdata) => {
     if(!onSubmit) return;
     delete formdata.cpassword;
@@ -94,12 +95,14 @@ const UserForm = ({ onSubmit, data, type='add', schema=SignupSchema }) => {
         error={zodError(errors, 'address')}
         placeholder="Address"
       />
-      <Select 
+      {type === 'edit' || type === 'add' ? <Select 
         label="Role"
         name="role"
+        value={watch('role')}
+        onChange={setValue}
         option={{ label: "name", value: "value" }}
         list={roleOptions}
-      />
+      /> : null}
       <Inputbox 
         label="Password"
         type="password"
@@ -126,7 +129,7 @@ const UserForm = ({ onSubmit, data, type='add', schema=SignupSchema }) => {
 
 UserForm.propTypes = {
   onSubmit: PropTypes.func,
-  type: PropTypes.oneOf(["add", "edit"]),
+  type: PropTypes.oneOf(["add", "edit", "profile", 'signup']),
   data: PropTypes.object,
   schema: PropTypes.object
 }

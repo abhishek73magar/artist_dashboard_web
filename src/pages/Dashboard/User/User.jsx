@@ -1,5 +1,8 @@
+import Pagination from "components/Pagination/Pagination"
 import Table from "components/Table/Table"
+import useStorepagenumber from "hooks/useStorepagenumber"
 import { userApi } from "libs/api"
+import { useSearchParams } from "react-router-dom"
 
 const colnames = [
   { name: "ID", key: "id" },
@@ -14,7 +17,10 @@ const colnames = [
 ]
 
 const User = () => {
-  const { data, isLoading } = userApi.useFetch()
+  const [query] = useSearchParams()
+  const pagenumber = query.get('page') ?? sessionStorage.getItem('pagenumber') ?? 1
+  const { data: user, isLoading } = userApi.usePagination(pagenumber)
+  useStorepagenumber(pagenumber)
 
   return (
     <section>
@@ -25,11 +31,15 @@ const User = () => {
         <Table 
           colnames={colnames}
           isLoading={isLoading}
-          data={Array.isArray(data) ? data.map((item) => ({ ...item, fullname: `${item.first_name} ${item.last_name}`})) : []}
+          data={user && Array.isArray(user.data) ? user.data.map((item) => ({ ...item, fullname: `${item.first_name} ${item.last_name}`})) : []}
           searchBy={['first_name', 'last_name', 'email']}
           serachBox
+          // edit=""
+          slug=""
           addNew={"add"}
         />
+
+        {user && <Pagination page={user.pagenumber} total={user.totalpage} />}
       </div>
     </section>
   )

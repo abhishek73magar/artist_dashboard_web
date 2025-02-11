@@ -60,8 +60,6 @@ const Select = ({
     return () => window.removeEventListener('mousedown', handle)
   }, [])
 
-  console.log(list, disabled, toggle)
-
   return (
     <div className={twMerge("flex flex-col justify-start items-start gap-2 w-full text-base ", divClassName)}>
       {label && <div className={twMerge("text-black font-semibold w-full min-w-[140px] max-w-[140px]", labelClassName)}>{label}</div>}

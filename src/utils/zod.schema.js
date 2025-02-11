@@ -11,6 +11,7 @@ const UserSchema = z.object({
     return value.length === 10 && !isNaN(value)
   }, { message: "Please use 10 digit phone number" }),
   address: z.string(),
+  role: z.enum(['artist_manager', 'artist']),
   // password: z.string().min(1, { message: "Password is required" }),
   cpassword: z.string()
 })

@@ -22,7 +22,8 @@ export const authApi = {
 }
 
 export const userApi = {
-  ...crud('/api/user')
+  ...crud('/api/user'),
+  usePagination: (pagenumber=1, limit=50) => useFetch(`/api/user?pagenumber=${pagenumber}&limit=${limit}`)
 }
 
 export const artistApi = {

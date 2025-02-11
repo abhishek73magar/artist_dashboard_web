@@ -32,7 +32,7 @@ const Signup = () => {
         <div className="text-4xl">Sign Up</div>
         <div className="flex flex-row justify-start items-center gap-2 font-medium">Hi, Please create your artist account <FaHandsClapping className="text-orange-300" /></div>
         
-        <UserForm onSubmit={__handleSubmit} />
+        <UserForm onSubmit={__handleSubmit} type="signup" />
 
         <div className="w-full flex flex-row justify-center items-center gap-2">
           If you are already registered? <Link to="/login" className="flex flex-row justify-start items-center gap-2 text-primary" title="Login"><b>Login</b> <GoArrowUpRight /></Link>

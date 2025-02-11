@@ -40,7 +40,7 @@ const Profile = () => {
           <UserForm 
             onSubmit={__updateProfile} 
             data={{...user, dob: moment(user.dob).format('YYYY-MM-DD')}}
-            type="edit"
+            type="profile"
             schema={EditProfile}
           /> 
         : <Spinner />  }

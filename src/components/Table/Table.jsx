@@ -178,7 +178,7 @@ const Searchbox = ({ setValue, ...inputProps }) => {
     interval.current = setTimeout(() => setValue(value), 500)
   }
   return (
-    <div className='border px-2 py-2 min-w-[200px] flex flex-row items-center justify-start group focus-within:ring-2 ring-primary focus-within:text-primary transition-all '>
+    <div className='border px-2 py-2 min-w-[250px] flex flex-row items-center justify-start group focus-within:ring-2 ring-primary focus-within:text-primary transition-all '>
       <input type='text' className={twMerge('flex-1 outline-none text-base px-2 text-secondary')} placeholder='Search' value={text} onChange={__onChange} {...inputProps} />
       <FaSearch className='text-lg cursor-pointer' />
     </div>  
