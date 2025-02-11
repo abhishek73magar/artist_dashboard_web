@@ -2,6 +2,8 @@ import Pagination from "components/Pagination/Pagination"
 import Table from "components/Table/Table"
 import useStorepagenumber from "hooks/useStorepagenumber"
 import { userApi } from "libs/api"
+import { getError, logError } from "libs/getError"
+import toast from "react-hot-toast"
 import { useSearchParams } from "react-router-dom"
 
 const colnames = [
@@ -20,7 +22,28 @@ const User = () => {
   const [query] = useSearchParams()
   const pagenumber = query.get('page') ?? sessionStorage.getItem('pagenumber') ?? 1
   const { data: user, isLoading } = userApi.usePagination(pagenumber)
+  const muate = userApi.useFetchUpdate()
   useStorepagenumber(pagenumber)
+
+  const __removeUser = async(id) => {
+    try {
+      const confirm = window.confirm("Are you sure ?")
+      if(!confirm) return;
+      const req = await toast.promise(userApi.del(id), {
+        loading: "deleting...",
+        success: "User deleted",
+        error: getError
+      })
+
+      if(req.status === 200){
+        muate.removePagination(id, pagenumber)
+        return req.data
+      }
+
+    } catch (error) {
+      return logError(error)
+    }
+  }
 
   return (
     <section>
@@ -37,6 +60,7 @@ const User = () => {
           // edit=""
           slug=""
           addNew={"add"}
+          onDelete={__removeUser}
         />
 
         {user && <Pagination page={user.pagenumber} total={user.totalpage} />}
