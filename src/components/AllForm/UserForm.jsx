@@ -7,6 +7,7 @@ import { SignupSchema } from "utils/zod.schema";
 import Radiobutton from "components/FormElement/Radiobutton";
 import PropTypes from "prop-types";
 import Select from "components/FormElement/Select"
+import { roleOptions } from "utils/optionList"
 
 const formPayload = {
   first_name: "",
@@ -21,14 +22,9 @@ const formPayload = {
   cpassword: ''
 }
 
-const roleOptions = [
-  { name: "Artist", value: "artist" },
-  { name: "Artist Manager", value: "artist_manager" }
-]
-
-const UserForm = ({ onSubmit, data=formPayload, type='add', schema=SignupSchema }) => {
+const UserForm = ({ onSubmit, name, data=formPayload, type='add', schema=SignupSchema }) => {
   const { register, handleSubmit, formState: { errors, isSubmitting }, watch, setValue, reset } = useForm({ defaultValues: data, mode: "onChange", resolver: zodResolver(schema)})
-    
+
   const __handleSubmit = (formdata) => {
     if(!onSubmit) return;
     delete formdata.cpassword;
@@ -121,7 +117,7 @@ const UserForm = ({ onSubmit, data=formPayload, type='add', schema=SignupSchema 
       />
       
       <div className="my-2 ml-auto w-full">
-        <Button className="" type="submit" isLoading={isSubmitting}>Login</Button>
+        <Button className="" type="submit" isLoading={isSubmitting}>{name ?? "Save"}</Button>
       </div>
     </form>
   )
@@ -131,7 +127,8 @@ UserForm.propTypes = {
   onSubmit: PropTypes.func,
   type: PropTypes.oneOf(["add", "edit", "profile", 'signup']),
   data: PropTypes.object,
-  schema: PropTypes.object
+  schema: PropTypes.object,
+  name: PropTypes.string
 }
 
 export default UserForm

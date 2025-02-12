@@ -11,7 +11,7 @@ const UserSchema = z.object({
     return value.length === 10 && !isNaN(value)
   }, { message: "Please use 10 digit phone number" }),
   address: z.string(),
-  role: z.enum(['artist_manager', 'artist']),
+  role: z.enum(['artist_manager', 'artist', 'super_admin']),
   // password: z.string().min(1, { message: "Password is required" }),
   cpassword: z.string()
 })
@@ -34,3 +34,14 @@ export const EditProfile = UserSchema.merge(z.object({
   if(dd.password && dd.password !== '') return dd.password === dd.cpassword
   return true;
 }, { path: ['cpassword'], message: "Confirm password doesn't match" })
+
+
+// aritst
+export const ArtistSchema = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
+  dob: z.date(),
+  no_of_albums_released: z.number().nullable(),
+  gender: z.enum(['m', 'f', 'o']),
+  address: z.string()
+})
+
