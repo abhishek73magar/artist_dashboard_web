@@ -1,4 +1,4 @@
-import { FaMusic, FaPersonBreastfeeding, FaUser, FaUserPlus } from "react-icons/fa6";
+import { FaPersonBreastfeeding, FaUser, FaUserPlus } from "react-icons/fa6";
 import { TbLogout } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
@@ -6,7 +6,7 @@ import { _logout, selectUser } from "store/redcuer/UserStore";
 import profile from 'assets/profile.webp'
 
 const navList = [
-  { name: "Music", path: "/music", icon: <FaMusic />  },
+  // { name: "Music", path: "/music", icon: <FaMusic />  },
   { name: "Artist", path: "/artist", icon: <FaPersonBreastfeeding />  },
   { name: "Users", path: "/user", icon: <FaUserPlus />  },
   { name: "Profile", path: "/profile", icon: <FaUser />  },

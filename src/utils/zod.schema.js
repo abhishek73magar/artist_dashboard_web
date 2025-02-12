@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { genreList } from './optionList';
 
 const UserSchema = z.object({
   first_name: z.string().min(3, { message: "First name must be 3 characters" }),
@@ -45,3 +46,9 @@ export const ArtistSchema = z.object({
   address: z.string()
 })
 
+// music
+export const MusicSchema = z.object({
+  genre: z.enum(genreList.map(i => i.value)),
+  title: z.string().min(1, { message: "Title is required" }),
+  album_name: z.string().min(1, { message: "Album name is required" })
+})

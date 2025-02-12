@@ -65,7 +65,7 @@ const Select = ({
       {label && <div className={twMerge("text-black font-semibold w-full min-w-[140px] max-w-[140px]", labelClassName)}>{label}</div>}
 
       <div className="w-full relative" ref={selectRef}>
-        <div onClick={() => __toggleHandle()} className={`border px-2 py-2  w-full rounded-md text-secondary flex flex-row justify-between items-center gap-2 cursor-pointer hover:ring-2 hover:ring-primary transition-all ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}>
+        <div onClick={() => __toggleHandle()} className={`border px-2 py-2  w-full rounded-md text-secondary flex flex-row justify-between items-center gap-2 cursor-pointer hover:ring-2 ${error ? "ring-2 ring-red-500" : "hover:ring-primary"} transition-all ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}>
           <div className="cursor-pointer line-clamp-1">{isLoading ? 'Loading...' : activeLabel ?? '--'}</div>
           <div className=""><HiOutlineSelector /></div>
         </div>

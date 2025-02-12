@@ -1,22 +1,21 @@
-import AritstForm from "components/AllForm/ArtistForm"
+import MusicForm from "components/AllForm/MusicForm"
 import DataNotFound from "components/DataNotFound/DataNotFound"
 import Model from "components/Model/Model"
 import Spinner from "components/Spinner/Spinner"
-import { artistApi } from "libs/api"
+import { musicApi } from "libs/api"
 import { getError } from "libs/getError"
-import moment from "moment"
 import toast from "react-hot-toast"
 import { useParams } from "react-router-dom"
 
-const EditArtist = () => {
-  const { id } = useParams()
-  const { data, isLoading } = artistApi.useFetchById(id, { fetchOnMount: "always" })
-  const mutate = artistApi.useFetchUpdate()
+const EditMusic = () => {
+  const { id, artist_id } = useParams()
+  const { data, isLoading } = musicApi.useFetchById(id, { fetchOnMount: "always" })
+  const mutate = musicApi.useFetchUpdate()
 
 
   const __editData = async(formdata) => {
     try {
-      const req = await toast.promise(artistApi.update(id, formdata), {
+      const req = await toast.promise(musicApi.update(id, formdata), {
         loading: 'saving...', 
         success: "Saved",
         error: getError,
@@ -34,11 +33,11 @@ const EditArtist = () => {
   }
   
     return (
-      <Model slug={"/artist"} title="Edit Artist">
+      <Model slug={`/artist/${artist_id}/music`} title="Edit Music">
         <article className="px-8 py-4">
           {data ? 
-            <AritstForm 
-              data={{ ...data, dob: moment(data.dob).format('YYYY-MM-DD')}} 
+            <MusicForm 
+              data={data} 
               onSubmit={__editData} 
               type="edit" 
             /> 
@@ -48,4 +47,4 @@ const EditArtist = () => {
     )
 }
 
-export default EditArtist
+export default EditMusic
