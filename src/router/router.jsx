@@ -1,5 +1,5 @@
 import { createBrowserRouter, redirect } from "react-router-dom";
-import { AddUser, Artist, EditUser, Music, Profile, User } from "router/lazy/Lazyload";
+import { AddArtist, AddMusic, AddUser, Artist, EditArtist, EditMusic, EditUser, Music, Profile, User } from "router/lazy/Lazyload";
 import Login from "pages/Login";
 import Signup from "pages/Signup";
 import SidebarOutlets from "router/Outlets/SidebarOutlet";
@@ -19,7 +19,19 @@ export const router = createBrowserRouter([
       },
       {
         path: 'artist',
-        element: <Artist />
+        element: <CommonOutlet component={<Artist />} />,
+        children: [
+          { path: "add", element: <AddArtist /> },
+          { path: ":id", element: <EditArtist /> },
+        ]
+      },
+      { 
+        path: "artist/:artist_id/music",
+        element: <CommonOutlet component={<Music />} />,
+        children: [
+          { path: "add", element: <AddMusic /> },
+          { path: ":id", element: <EditMusic /> }
+        ]
       },
       { 
         path: 'user', 

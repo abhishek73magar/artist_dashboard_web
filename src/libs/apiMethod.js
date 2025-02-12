@@ -96,7 +96,7 @@ export const useFetchUpdate = (url) => {
     addPagination: (dd, pagenumber, limit=50) => {
       return queryClient.setQueriesData([`${url}?pagenumber=${pagenumber || sessionStorage.getItem('pagenumber') || 1}&limit=${limit}`], (prev) => {
         if(prev && Array.isArray(prev.data)) {
-          const data = [...prev.data, dd]
+          const data = [dd, ...prev.data]
           return { ...prev, data }
         }
         return prev; 

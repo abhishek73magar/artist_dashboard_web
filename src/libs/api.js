@@ -27,9 +27,11 @@ export const userApi = {
 }
 
 export const artistApi = {
-  ...crud('/api/artist')
+  ...crud('/api/artist'),
+  usePagination: (pagenumber=1, limit=50) => useFetch(`/api/artist?pagenumber=${pagenumber}&limit=${limit}`)
 }
 
 export const musicApi = {
-  ...crud('/api/music')
+  ...crud('/api/music'),
+  usePagination: (pagenumber=1, limit=50) => useFetch(`/api/music?pagenumber=${pagenumber}&limit=${limit}`)
 }

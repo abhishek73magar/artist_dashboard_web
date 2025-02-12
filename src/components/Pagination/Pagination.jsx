@@ -24,7 +24,7 @@ const Pagination = ({ page, total }) => {
           const isActive = pagenumber === +active_page
           if(pagenumber === '...'){
             return (
-              <div key={indx} className='px-3 py-1 '>``
+              <div key={indx} className='px-3 py-1 '>
                 <HiOutlineDotsHorizontal />
               </div>
             )

@@ -11,7 +11,7 @@ export const Artist = lazy(() => import('pages/Dashboard/Artist/Artist'))
 export const AddArtist = lazy(() => import('pages/Dashboard/Artist/AddArtist'))
 export const EditArtist = lazy(() => import('pages/Dashboard/Artist/EditArtist'))
 
-export const Music = lazy(() => import('pages/Dashboard/Music/Music'))
-export const AddMusic = lazy(() => import('pages/Dashboard/Music/AddMusic'))
-export const EditMusic = lazy(() => import('pages/Dashboard/Music/EditMusic'))
+export const Music = lazy(() => import('pages/Dashboard/Artist/Music/Music'))
+export const AddMusic = lazy(() => import('pages/Dashboard/Artist/Music/AddMusic'))
+export const EditMusic = lazy(() => import('pages/Dashboard/Artist/Music/EditMusic'))
 
