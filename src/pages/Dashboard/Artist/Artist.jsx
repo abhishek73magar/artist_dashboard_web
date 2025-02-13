@@ -1,3 +1,4 @@
+import Button from "components/FormElement/Button"
 import Pagination from "components/Pagination/Pagination"
 import Table from "components/Table/Table"
 import useStorepagenumber from "hooks/useStorepagenumber"
@@ -50,6 +51,10 @@ const Artist = () => {
       <div className="text-4xl">Artist List</div>
       <div className="flex flex-row justify-start items-center gap-2 font-medium">All available artist</div>
       <div>
+        {/* <div className="flex flex-row justify-end gap-2">
+          <Button type="button" className={'w-[130px]'}>Export as CSV</Button>
+          <Button type="button" className={'w-[150px]'}>Import from CSV</Button>
+        </div> */}
         <Table 
           colnames={colnames}
           isLoading={isLoading}
@@ -60,6 +65,7 @@ const Artist = () => {
           slug=""
           addNew={"add"}
           onDelete={__removeUser}
+          resource={'artist'}
         />
 
         {user && <Pagination page={user.pagenumber} total={user.totalpage} />}

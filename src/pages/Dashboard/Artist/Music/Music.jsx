@@ -62,6 +62,7 @@ const User = () => {
           slug=""
           addNew={"add"}
           onDelete={__removeUser}
+          resource={'music'}
         />
 
         {user && <Pagination page={user.pagenumber} total={user.totalpage || 1} />}

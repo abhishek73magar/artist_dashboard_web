@@ -2,13 +2,13 @@ import { FaPersonBreastfeeding, FaUser, FaUserPlus } from "react-icons/fa6";
 import { TbLogout } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { _logout, selectUser } from "store/redcuer/UserStore";
+import { _logout, selectPermission, selectUser } from "store/redcuer/UserStore";
 import profile from 'assets/profile.webp'
 
 const navList = [
   // { name: "Music", path: "/music", icon: <FaMusic />  },
-  { name: "Artist", path: "/artist", icon: <FaPersonBreastfeeding />  },
-  { name: "Users", path: "/user", icon: <FaUserPlus />  },
+  { name: "Artist", path: "/artist", icon: <FaPersonBreastfeeding />, resource: 'artist' },
+  { name: "Users", path: "/user", icon: <FaUserPlus />, resource: 'user'  },
   { name: "Profile", path: "/profile", icon: <FaUser />  },
 
 ]
@@ -16,6 +16,7 @@ const navList = [
 const Sidebar = () => {
   const location = useLocation()
   const user = useSelector(selectUser)
+  const permission = useSelector(selectPermission)
   const dispatch = useDispatch()
 
   const __logout = () => {
@@ -34,7 +35,8 @@ const Sidebar = () => {
         </div>
 
         <nav className="my-3">
-          {navList.map(({ name, path, icon }, indx) => {
+          {navList.map(({ name, path, icon, resource }, indx) => {
+            if(resource && permission && !permission.view.includes(resource)) return false;
             return (
               <Link
                 key={indx}

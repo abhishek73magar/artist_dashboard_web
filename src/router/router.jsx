@@ -12,11 +12,7 @@ export const router = createBrowserRouter([
     loader: auth,
     element: <SidebarOutlets />,
     children: [
-      { path: "", loader: () => redirect('/music')},
-      { 
-        path: 'music',
-        element: <Music />
-      },
+      { path: "", loader: () => redirect('/aritst')},
       {
         path: 'artist',
         element: <CommonOutlet component={<Artist />} />,

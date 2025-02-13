@@ -10,11 +10,9 @@ const useCheckPermission = (resource) => {
     // Check if the user has permission to view and edit the resource
     if(!resource) return [true, true]; // if resource is not provided, return true
     if(user && user.role === 'super_admin') return [true, true]
-    const view = permission && permission.view ? permission.view.inclues(resource) : false;
-    const modify = permission && permission.edit ? permission.edit.inclues(resource) : false;
+    const view = permission && permission.view ? permission.view.includes(resource) : false;
+    const modify = permission && permission.edit ? permission.edit.includes(resource) : false;
     
-    
-
     return [view, modify] // view, edit
   }, [permission, resource, user])
 

@@ -18,7 +18,8 @@ export const authApi = {
   signup: (data) => post('/api/signup', data),
   useProfile: () => useFetch('/api/user/profile'),
   useMutateProfile: () => useFetchUpdate('/api/user/profile'),
-  updateProfile: (data) => update('/api/user/profile', data)
+  updateProfile: (data) => update('/api/user/profile', data),
+  verify: () => get('/api/user/verify')
 }
 
 export const userApi = {
