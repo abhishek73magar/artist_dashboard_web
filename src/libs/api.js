@@ -29,7 +29,8 @@ export const userApi = {
 
 export const artistApi = {
   ...crud('/api/artist'),
-  usePagination: (pagenumber=1, limit=50) => useFetch(`/api/artist?pagenumber=${pagenumber}&limit=${limit}`)
+  usePagination: (pagenumber=1, limit=50) => useFetch(`/api/artist?pagenumber=${pagenumber}&limit=${limit}`),
+  importAsCsv: (data) => post('/api/artist/import-csv', data, { "Content-Type": "multipart/formdata" })
 }
 
 export const musicApi = {

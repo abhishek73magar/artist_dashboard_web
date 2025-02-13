@@ -98,6 +98,7 @@ export const useFetchUpdate = (url) => {
         
         if(!prev) return { pagenumber: 1, total: 1, data: [dd] } 
         if(prev && Array.isArray(prev.data)) {
+          if(Array.isArray(dd)) return { ...prev, data: [...dd, ...prev.data]}
           const data = [dd, ...prev.data]
           return { ...prev, data }
         }

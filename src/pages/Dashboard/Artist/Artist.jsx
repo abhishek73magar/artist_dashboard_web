@@ -4,6 +4,7 @@ import Table from "components/Table/Table"
 import useStorepagenumber from "hooks/useStorepagenumber"
 import { artistApi } from "libs/api"
 import { getError, logError } from "libs/getError"
+import moment from "moment"
 import toast from "react-hot-toast"
 import { Link, useSearchParams } from "react-router-dom"
 
@@ -46,15 +47,65 @@ const Artist = () => {
     }
   }
 
+  const __exportAsCSV = () => {
+    if(!user || !Array.isArray(user.data) || user.data.length === 0) return toast.error("Artist list is empty")
+    const head = Object.keys(user.data[0])
+    const dd = user.data.map((item) => {
+      return head.map(key => {
+        if(key === 'dob' && item[key]) return moment(item.key).format('YYYY-MM-DD')
+        return item[key]
+      }).join(',')
+    }).join('\n')
+    const csvString = head.join(',') + '\n' + dd
+    const blob = new Blob([csvString], { type: "text/csv" })
+
+    // Generate download link
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.setAttribute("href", url)
+    link.setAttribute("download", "artist-list.csv")
+    document.body.appendChild(link)
+    link.click()
+    // remove download link from main body
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+  }
+
+  const __importAsCsv = async(e) => {
+    try {
+      console.log(e.target.files)
+      const file = e.target.files[0]
+      if(!file) return toast.error("File must be required !!")
+      const formdata = new FormData()
+      formdata.append('csv-file', file)
+      const req = await toast.promise(artistApi.importAsCsv(formdata), {
+        loading: "saving...",
+        success: "Artist added successfully",
+        error: getError
+      })
+
+      if(req.status === 201){
+        muate.addPagination(req.data, pagenumber)
+        return req.data;
+      }
+    } catch (error) {
+      return logError(error)
+    }
+  } 
+
   return (
     <section>
       <div className="text-4xl">Artist List</div>
       <div className="flex flex-row justify-start items-center gap-2 font-medium">All available artist</div>
       <div>
-        {/* <div className="flex flex-row justify-end gap-2">
-          <Button type="button" className={'w-[130px]'}>Export as CSV</Button>
-          <Button type="button" className={'w-[150px]'}>Import from CSV</Button>
-        </div> */}
+        <div className="flex flex-row justify-end gap-2">
+          <Button type="button" className={'w-[130px]'} onClick={__exportAsCSV}>Export as CSV</Button>
+          {/* <Button type="button" className={'w-[150px]'}>Import from CSV</Button> */}
+          <label htmlFor="import_csv" className="px-2 py-2 w-[150px] text-center bg-primary text-white rounded-md hover:bg-primary/50 cursor-pointer font-semibold">
+            Import from CSV
+            <input type="file" onChange={__importAsCsv} accept="text/csv" hidden id="import_csv" />
+          </label>
+        </div>
         <Table 
           colnames={colnames}
           isLoading={isLoading}
