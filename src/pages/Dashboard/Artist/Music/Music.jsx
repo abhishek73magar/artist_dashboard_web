@@ -51,12 +51,12 @@ const User = () => {
       <div className="text-4xl">Music List</div>
       <div className="flex flex-row justify-start items-center gap-2 font-medium"><b>{artist ? `${artist.name}'s` : ""},</b> all available music</div>
 
-      <div>
+      <div className="pb-8">
         <Table 
           colnames={colnames}
           isLoading={isLoading}
           data={user && Array.isArray(user.data) ? user.data.map((item) => ({ ...item, fullname: `${item.first_name} ${item.last_name}`})) : []}
-          searchBy={['first_name', 'last_name', 'email']}
+          searchBy={['title', 'album_name', 'genre', 'artist_name']}
           serachBox
           // edit=""
           slug=""

@@ -97,7 +97,7 @@ const Artist = () => {
     <section>
       <div className="text-4xl">Artist List</div>
       <div className="flex flex-row justify-start items-center gap-2 font-medium">All available artist</div>
-      <div>
+      <div className="pb-8">
         <div className="flex flex-row justify-end gap-2">
           <Button type="button" className={'w-[130px]'} onClick={__exportAsCSV}>Export as CSV</Button>
           {/* <Button type="button" className={'w-[150px]'}>Import from CSV</Button> */}
@@ -110,7 +110,7 @@ const Artist = () => {
           colnames={colnames}
           isLoading={isLoading}
           data={user && Array.isArray(user.data) ? user.data.map((item) => ({ ...item, view: <Link to={`${item.id}/music`} className="text-primary underline hover:opacity-50">View</Link>})) : []}
-          searchBy={['first_name', 'last_name', 'email']}
+          searchBy={['name']}
           serachBox
           // edit=""
           slug=""

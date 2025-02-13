@@ -50,7 +50,7 @@ const User = () => {
       <div className="text-4xl">User List</div>
       <div className="flex flex-row justify-start items-center gap-2 font-medium">All Users Are here</div>
 
-      <div>
+      <div className="pb-8">
         <Table 
           colnames={colnames}
           isLoading={isLoading}
