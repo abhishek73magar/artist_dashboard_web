@@ -1,6 +1,7 @@
 import Button from "components/FormElement/Button"
 import Pagination from "components/Pagination/Pagination"
 import Table from "components/Table/Table"
+import useCheckPermission from "hooks/useCheckPermission"
 import useStorepagenumber from "hooks/useStorepagenumber"
 import { artistApi } from "libs/api"
 import { getError, logError } from "libs/getError"
@@ -25,6 +26,7 @@ const Artist = () => {
   const pagenumber = query.get('page') ?? sessionStorage.getItem('pagenumber') ?? 1
   const { data: user, isLoading } = artistApi.usePagination(pagenumber)
   const muate = artistApi.useFetchUpdate()
+  const [, edit] = useCheckPermission('artist')
   useStorepagenumber(pagenumber)
 
   const __removeUser = async(id) => {
@@ -98,14 +100,13 @@ const Artist = () => {
       <div className="text-4xl">Artist List</div>
       <div className="flex flex-row justify-start items-center gap-2 font-medium">All available artist</div>
       <div className="pb-8">
-        <div className="flex flex-row justify-end gap-2">
+        {edit && <div className="flex flex-row justify-end gap-2">
           <Button type="button" className={'w-[130px]'} onClick={__exportAsCSV}>Export as CSV</Button>
-          {/* <Button type="button" className={'w-[150px]'}>Import from CSV</Button> */}
           <label htmlFor="import_csv" className="px-2 py-2 w-[150px] text-center bg-primary text-white rounded-md hover:bg-primary/50 cursor-pointer font-semibold">
             Import from CSV
             <input type="file" onChange={__importAsCsv} accept="text/csv" hidden id="import_csv" />
           </label>
-        </div>
+        </div>}
         <Table 
           colnames={colnames}
           isLoading={isLoading}

@@ -94,7 +94,8 @@ export const useFetchUpdate = (url) => {
     },
     // paginateted data update
     addPagination: (dd, pagenumber, limit=50) => {
-      return queryClient.setQueriesData([`${url}?pagenumber=${pagenumber || sessionStorage.getItem('pagenumber') || 1}&limit=${limit}`], (prev) => {
+      console.log(url)
+      return queryClient.setQueryData([`${url}?pagenumber=${pagenumber || sessionStorage.getItem('pagenumber') || 1}&limit=${limit}`], (prev) => {
         
         if(!prev) return { pagenumber: 1, total: 1, data: [dd] } 
         if(prev && Array.isArray(prev.data)) {
@@ -106,7 +107,7 @@ export const useFetchUpdate = (url) => {
       })
     },
     updatePagination: (id, dd, pagenumber, limit=50) => {
-      return queryClient.setQueriesData([`${url}?pagenumber=${pagenumber || sessionStorage.getItem('pagenumber') || 1}&limit=${limit}`], (prev) => {
+      return queryClient.setQueryData([`${url}?pagenumber=${pagenumber || sessionStorage.getItem('pagenumber') || 1}&limit=${limit}`], (prev) => {
         if(prev && Array.isArray(prev.data)) {
           const data = prev.data.map((item) => +item.id === +id ? ({ ...item, ...dd }) : item)
           return { ...prev, data }
@@ -115,7 +116,7 @@ export const useFetchUpdate = (url) => {
       })
     },
     removePagination: (id, pagenumber, limit=50) => {
-      return queryClient.setQueriesData([`${url}?pagenumber=${pagenumber || sessionStorage.getItem('pagenumber') || 1}&limit=${limit}`], (prev) => {
+      return queryClient.setQueryData([`${url}?pagenumber=${pagenumber || sessionStorage.getItem('pagenumber') || 1}&limit=${limit}`], (prev) => {
         if(prev && Array.isArray(prev.data)) {
           const data = prev.data.filter((item) => +item.id !== +id)
           return { ...prev, data }
