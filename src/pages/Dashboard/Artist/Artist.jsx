@@ -75,7 +75,7 @@ const Artist = () => {
 
   const __importAsCsv = async(e) => {
     try {
-      console.log(e.target.files)
+      // console.log(e.target.files)
       const file = e.target.files[0]
       if(!file) return toast.error("File must be required !!")
       const formdata = new FormData()
