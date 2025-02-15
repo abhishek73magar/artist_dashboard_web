@@ -41,7 +41,7 @@ export const EditProfile = UserSchema.merge(z.object({
 export const ArtistSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   dob: z.date(),
-  no_of_albums_released: z.number().nullable(),
+  // no_of_albums_released: z.number().nullable(),
   gender: z.enum(['m', 'f', 'o']),
   address: z.string()
 })

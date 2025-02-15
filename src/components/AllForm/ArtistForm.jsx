@@ -12,7 +12,7 @@ const formPayload = {
   dob: "",
   gender: 'm',
   address: '',
-  no_of_albums_released: '',
+  // no_of_albums_released: '',
 }
 
 const AritstForm = ({ onSubmit, data=formPayload, type='add' }) => {
@@ -48,14 +48,14 @@ const AritstForm = ({ onSubmit, data=formPayload, type='add' }) => {
           error={zodError(errors, 'dob')}
         />
 
-        <Inputbox 
+        {/* <Inputbox 
           label="No of Albums Released"
           type="number"
           name="no_of_albums_released"
           register={register('no_of_albums_released', { valueAsNumber: true })}
           error={zodError(errors, 'no_of_albums_released')}
           placeholder="No of Albums Released"
-        />
+        /> */}
       </div>
 
       <div className="flex flex-col justify-start items-start gap-2">
